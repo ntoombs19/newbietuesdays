@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
@@ -69,19 +69,20 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                     $selectOperator = ' IN (?)';
                 } else {
                     $selectOperator = ' LIKE ?';
-                    $value          = '%' . $value . '%';
                 }
                 if (substr($operator, 0, 1) == '!') {
                     $selectOperator = ' NOT' . $selectOperator;
                 }
                 break;
 
+            case '[]':
+            case '![]':
             case '()':
-                $selectOperator = ' IN(?)';
-                break;
-
             case '!()':
-                $selectOperator = ' NOT IN(?)';
+                $selectOperator = 'FIND_IN_SET(?,' . $this->_adapter->quoteIdentifier($field) . ')';
+                if (substr($operator, 0, 1) == '!') {
+                    $selectOperator = 'NOT ' . $selectOperator;
+                }
                 break;
 
             default:
@@ -90,12 +91,22 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
         }
         $field = $this->_adapter->quoteIdentifier($field);
 
-        if (is_array($value) && in_array($operator, array('==', '!=', '>=', '<=', '>', '<'))) {
+        if (is_array($value) && in_array($operator, array('==', '!=', '>=', '<=', '>', '<', '{}', '!{}'))) {
             $results = array();
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $v);
             }
             $result = implode(' AND ', $results);
+        } elseif (in_array($operator, array('()', '!()', '[]', '![]'))) {
+            if (!is_array($value)) {
+                $value = array($value);
+            }
+
+            $results = array();
+            foreach ($value as $v) {
+                $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
+            }
+            $result = implode(in_array($operator, array('()', '!()')) ? ' OR ' : ' AND ', $results);
         } else {
             $result = $this->_adapter->quoteInto("{$field}{$selectOperator}", $value);
         }

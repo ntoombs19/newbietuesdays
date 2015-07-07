@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 /**
@@ -131,11 +131,16 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if ($this->getNewPassword()) {
-            // Change password
+            // Change user password
             $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
+            $data['new_password'] = $data['password'];
         } elseif ($this->getPassword() && $this->getPassword() != $this->getOrigData('password')) {
             // New user password
             $data['password'] = $this->_getEncodedPassword($this->getPassword());
+        } elseif (!$this->getPassword() && $this->getOrigData('password') // Change user data
+            || $this->getPassword() == $this->getOrigData('password')     // Retrieve user password
+        ) {
+            $data['password'] = $this->getOrigData('password');
         }
 
         $this->cleanPasswordsValidationData();
@@ -639,12 +644,13 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Clean password's validation data (password, new_password, password_confirmation)
+     * Clean password's validation data (password, current_password, new_password, password_confirmation)
      *
      * @return Mage_Admin_Model_User
      */
     public function cleanPasswordsValidationData()
     {
+        $this->setData('password', null);
         $this->setData('current_password', null);
         $this->setData('new_password', null);
         $this->setData('password_confirmation', null);

@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 /**
@@ -210,7 +210,15 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             'label' => $this->_profile->getFieldLabel('currency_code'),
             'value' => $this->_profile->getCurrencyCode()
         ));
-        foreach (array('init_amount', 'trial_billing_amount', 'billing_amount', 'tax_amount', 'shipping_amount') as $key) {
+        foreach (
+            array(
+                'init_amount',
+                'trial_billing_amount',
+                'billing_amount',
+                'tax_amount',
+                'shipping_amount'
+            ) as $key
+         ) {
             $value = $this->_profile->getData($key);
             if ($value) {
                 $this->_addInfo(array(
@@ -251,7 +259,13 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     public function prepareRelatedOrdersFrontendGrid()
     {
         $this->_prepareRelatedOrders(array(
-            'increment_id', 'created_at', 'customer_firstname', 'customer_lastname', 'base_grand_total', 'status'
+            'increment_id',
+            'created_at',
+            'customer_firstname',
+            'customer_middlename',
+            'customer_lastname',
+            'base_grand_total',
+            'status'
         ));
         $this->_relatedOrders->addFieldToFilter('state', array(
             'in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()

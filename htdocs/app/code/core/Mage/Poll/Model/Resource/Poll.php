@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 
@@ -148,13 +148,11 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
         $select = $this->_getReadAdapter()->select()
             ->distinct()
             ->from($this->getTable('poll_vote'), 'poll_id')
-            ->where('ip_address = :ip_address');
-        $bind = array(':ip_address' => ip2long($ipAddress));
+            ->where('ip_address = ?', inet_pton($ipAddress));
         if (!empty($pollId)) {
-            $select->where('poll_id = :poll_id');
-            $bind[':poll_id'] = $pollId;
+            $select->where('poll_id = ?', $pollId);
         }
-        $result = $this->_getReadAdapter()->fetchCol($select, $bind);
+        $result = $this->_getReadAdapter()->fetchCol($select);
         if (empty($result)) {
             $result = array();
         }

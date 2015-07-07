@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 
@@ -87,6 +87,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         /* @var $countSelect Varien_Db_Select */
         $countSelect = parent::getSelectCountSql();
         $countSelect->resetJoinLeft();
+        $countSelect->reset(Zend_Db_Select::GROUP);
         return $countSelect;
     }
 
@@ -118,11 +119,13 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
 
         $this
             ->addFilterToMap('billing_firstname', $billingAliasName . '.firstname')
+            ->addFilterToMap('billing_middlename', $billingAliasName . '.middlename')
             ->addFilterToMap('billing_lastname', $billingAliasName . '.lastname')
             ->addFilterToMap('billing_telephone', $billingAliasName . '.telephone')
             ->addFilterToMap('billing_postcode', $billingAliasName . '.postcode')
 
             ->addFilterToMap('shipping_firstname', $shippingAliasName . '.firstname')
+            ->addFilterToMap('shipping_middlename', $shippingAliasName . '.middlename')
             ->addFilterToMap('shipping_lastname', $shippingAliasName . '.lastname')
             ->addFilterToMap('shipping_telephone', $shippingAliasName . '.telephone')
             ->addFilterToMap('shipping_postcode', $shippingAliasName . '.postcode');
@@ -135,6 +138,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     . " AND {$billingAliasName}.address_type = 'billing')",
                 array(
                     $billingAliasName . '.firstname',
+                    $billingAliasName . '.middlename',
                     $billingAliasName . '.lastname',
                     $billingAliasName . '.telephone',
                     $billingAliasName . '.postcode'
@@ -146,6 +150,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     . " AND {$shippingAliasName}.address_type = 'shipping')",
                 array(
                     $shippingAliasName . '.firstname',
+                    $shippingAliasName . '.middlename',
                     $shippingAliasName . '.lastname',
                     $shippingAliasName . '.telephone',
                     $shippingAliasName . '.postcode'

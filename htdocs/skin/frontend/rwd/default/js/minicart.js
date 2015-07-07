@@ -1,12 +1,12 @@
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -19,8 +19,8 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 function Minicart(options) {
     this.formKey = options.formKey;
@@ -47,7 +47,8 @@ function Minicart(options) {
 }
 
 Minicart.prototype = {
-
+    initAfterEvents : {},
+    removeItemAfterEvents : {},
     init: function() {
         var cart = this;
 
@@ -74,6 +75,13 @@ Minicart.prototype = {
             .bind('click.quantity', function() {
                 cart.processUpdateQuantity(this);
         });
+
+        for (var i in this.initAfterEvents) {
+            if (this.initAfterEvents.hasOwnProperty(i) && typeof(this.initAfterEvents[i]) === "function") {
+                this.initAfterEvents[i]();
+            }
+        }
+
     },
 
     removeItem: function(el) {
@@ -98,6 +106,11 @@ Minicart.prototype = {
                 cart.hideOverlay();
                 cart.showError(cart.defaultErrorMessage);
             });
+        }
+        for (var i in this.removeItemAfterEvents) {
+            if (this.removeItemAfterEvents.hasOwnProperty(i) && typeof(this.removeItemAfterEvents[i]) === "function") {
+                this.removeItemAfterEvents[i]();
+            }
         }
     },
 

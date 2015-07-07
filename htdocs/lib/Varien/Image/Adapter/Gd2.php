@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Varien
  * @package     Varien_Image
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 
@@ -42,6 +42,20 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * @var bool
      */
     protected $_resized = false;
+
+    public function __construct()
+    {
+        // Initialize shutdown function
+        register_shutdown_function(array($this, 'destruct'));
+    }
+
+    /**
+     * Destroy object image on shutdown
+     */
+    public function destruct()
+    {
+        @imagedestroy($this->_imageHandler);
+    }
 
     /**
      * Opens image file.
@@ -68,26 +82,56 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     protected function _isMemoryLimitReached()
     {
         $limit = $this->_convertToByte(ini_get('memory_limit'));
+        /**
+         * In case if memory limit was converted to 0, treat it as unlimited
+         */
+        if ($limit === 0) {
+            return false;
+        }
         $size = getimagesize($this->_fileName);
         $requiredMemory = $size[0] * $size[1] * 3;
+
         return (memory_get_usage(true) + $requiredMemory) > $limit;
     }
 
     /**
-     * Converts memory value (e.g. 64M, 129KB) to bytes.
-     * Case insensitive value might be used.
+     * Convert PHP memory limit value into bytes
+     * Notation in value is supported only for PHP
+     * Shorthand byte options are case insensitive
      *
      * @param string $memoryValue
+     *
+     * @throws Varien_Exception
+     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
+     *
      * @return int
      */
     protected function _convertToByte($memoryValue)
     {
-        if (stripos($memoryValue, 'M') !== false) {
-            return (int)$memoryValue * 1024 * 1024;
-        } elseif (stripos($memoryValue, 'KB') !== false) {
-            return (int)$memoryValue * 1024;
+        $memoryValue = trim($memoryValue);
+        if (empty($memoryValue)) {
+            return 0;
         }
-        return (int)$memoryValue;
+        if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
+            $option = strtolower($matches[2]);
+            $memoryValue = $matches[1];
+            switch ($option) {
+                case 'g':
+                    $memoryValue *= 1024;
+                    // no break
+                case 'm':
+                    $memoryValue *= 1024;
+                    // no break
+                case 'k':
+                    $memoryValue *= 1024;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $memoryValue = (int)$memoryValue;
+
+        return $memoryValue > 0 ? $memoryValue : 0;
     }
 
     public function save($destination=null, $newName=null)
@@ -577,10 +621,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_imageSrcHeight = imagesy($this->_imageHandler);
     }
 
-    function __destruct()
-    {
-        @imagedestroy($this->_imageHandler);
-    }
 
     /*
      * Fixes saving PNG alpha channel

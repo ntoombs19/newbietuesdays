@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 /**
@@ -167,5 +167,65 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     protected function _getSingletonModel($name, $arguments = array())
     {
         return Mage::getSingleton($name, $arguments);
+    }
+
+    /**
+     * Retrieve encoding domain name in punycode
+     *
+     * @param string $url encode url to Punycode
+     * @return string
+     */
+    public function encodePunycode($url)
+    {
+        $parsedUrl = parse_url($url);
+        if (!$this->_isPunycode($parsedUrl['host'])) {
+            if (function_exists('idn_to_ascii')) {
+                $host = idn_to_ascii($parsedUrl['host']);
+            } else {
+                $idn = new Net_IDNA2();
+                $host = $idn->encode($parsedUrl['host']);
+            }
+            return str_replace($parsedUrl['host'], $host, $url);
+        } else {
+            return $url;
+        }
+    }
+
+    /**
+     * Retrieve decoding domain name from punycode
+     *
+     * @param string $url decode url from Punycode
+     * @return string
+     */
+    public function decodePunycode($url)
+    {
+        $parsedUrl = parse_url($url);
+        if ($this->_isPunycode($parsedUrl['host'])) {
+            if (function_exists('idn_to_utf8')) {
+                $host = idn_to_utf8($parsedUrl['host']);
+            } else {
+                $idn = new Net_IDNA2();
+                $host = $idn->decode($parsedUrl['host']);
+            }
+            return str_replace($parsedUrl['host'], $host, $url);
+        } else {
+            return $url;
+        }
+    }
+
+    /**
+     * Check domain name for IDN using ACE prefix http://tools.ietf.org/html/rfc3490#section-5
+     *
+     * @param string $host domain name
+     * @return boolean
+     */
+    private function _isPunycode($host)
+    {
+        if (strpos($host, 'xn--') === 0 || strpos($host, '.xn--') !== false
+            || strpos($host, 'XN--') === 0 || strpos($host, '.XN--') !== false
+        ) {
+            return true;
+        }
+        return false;
     }
 }

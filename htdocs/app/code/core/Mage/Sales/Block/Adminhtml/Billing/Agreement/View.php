@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 /**
@@ -58,11 +58,12 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View extends Mage_Adminhtml_B
         ), -1);
 
         if ($this->_getBillingAgreement()->canCancel() && $this->_isAllowed('sales/billing_agreement/actions/manage')) {
+            $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
+                Mage::helper('sales')->__('Are you sure you want to do this?')
+            );
             $this->_addButton('cancel', array(
                 'label'     => Mage::helper('adminhtml')->__('Cancel'),
-                'onclick'   => "confirmSetLocation("
-                    . "'{$this->__('Are you sure you want to do this?')}', '{$this->_getCancelUrl()}'"
-                . ")",
+                'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$this->_getCancelUrl()}')",
                 'class'     => 'cancel',
             ), -1);
         }

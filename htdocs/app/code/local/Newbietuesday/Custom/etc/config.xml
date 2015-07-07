@@ -1,0 +1,46 @@
+<!--
+/**
+ * config.xml
+ *
+ * @category    CLS
+ * @package     Custom
+ * @author      Chris Huffman <chris.huffman@classyllama.com>
+ * @copyright   Copyright (c) 2015 Classy Llama Studios
+ */
+-->
+<config>
+    <modules>
+        <cls_custom>
+            <version>0.0.1</version>
+        </cls_custom>
+    </modules>
+    <global>
+        <blocks>
+            <cls_custom>
+                <class>CLS_Custom_Block</class>
+            </cls_custom>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>CLS_Custom_Block_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <cls_custom>
+                <class>CLS_Custom_Helper</class>
+            </cls_custom>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <cls_custom after="Mage_Adminhtml">CLS_Custom</cls_custom>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Newbietuesday_Export>
+            <version>1.0.0</version>
+        </Newbietuesday_Export>
+    </modules>
+    <global>
+        <blocks>
+            <Newbietuesday_Export>
+                <class>Newbietuesday_Export_Block</class>
+            </Newbietuesday_Export>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Newbietuesday_Export_Block_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <Newbietuesday_Export>
+                <class>Newbietuesday_Export_Helper</class>
+            </Newbietuesday_Export>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Newbietuesday_Export after="Mage_Adminhtml">Newbietuesday_Export</Newbietuesday_Export>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

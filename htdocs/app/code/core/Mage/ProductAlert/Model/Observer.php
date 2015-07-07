@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_ProductAlert
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 
@@ -102,6 +102,7 @@ class Mage_ProductAlert_Model_Observer
     protected function _processPrice(Mage_ProductAlert_Model_Email $email)
     {
         $email->setType('price');
+        $originalStore = Mage::app()->getStore();
         foreach ($this->_getWebsites() as $website) {
             /* @var $website Mage_Core_Model_Website */
 
@@ -127,6 +128,7 @@ class Mage_ProductAlert_Model_Observer
 
             $previousCustomer = null;
             $email->setWebsite($website);
+            Mage::app()->setCurrentStore($website->getDefaultGroup()->getDefaultStore());
             foreach ($collection as $alert) {
                 try {
                     if (!$previousCustomer || $previousCustomer->getId() != $alert->getCustomerId()) {
@@ -178,6 +180,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
         }
+        Mage::app()->setCurrentStore($originalStore);
         return $this;
     }
 
@@ -190,6 +193,7 @@ class Mage_ProductAlert_Model_Observer
     protected function _processStock(Mage_ProductAlert_Model_Email $email)
     {
         $email->setType('stock');
+        $originalStore = Mage::app()->getStore();
 
         foreach ($this->_getWebsites() as $website) {
             /* @var $website Mage_Core_Model_Website */
@@ -217,6 +221,7 @@ class Mage_ProductAlert_Model_Observer
 
             $previousCustomer = null;
             $email->setWebsite($website);
+            Mage::app()->setCurrentStore($website->getDefaultGroup()->getDefaultStore());
             foreach ($collection as $alert) {
                 try {
                     if (!$previousCustomer || $previousCustomer->getId() != $alert->getCustomerId()) {
@@ -268,6 +273,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
         }
+        Mage::app()->setCurrentStore($originalStore);
 
         return $this;
     }

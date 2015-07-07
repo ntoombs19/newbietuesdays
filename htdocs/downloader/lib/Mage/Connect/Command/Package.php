@@ -1,13 +1,13 @@
 <?php
 /**
- * Magento
+ * Magento Enterprise Edition
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.magento.com/license/enterprise-edition
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
@@ -20,8 +20,8 @@
  *
  * @category    Mage
  * @package     Mage_Connect
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
  */
 
 final class Mage_Connect_Command_Package
@@ -111,17 +111,17 @@ extends Mage_Connect_Command
                 $config = $this->config();
             }
 
-            $rest = new Mage_Connect_Rest($config->protocol);
+            $rest = Mage_Connect_Rest_Builder::getAdapter($config->protocol);
             if(!empty($channelAuth)){
                 $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
             }
 
             $cache->checkChannel($channel, $config, $rest);
 
-            $data = $packager->getDependenciesList($channel, $package, $cache, $config, 
+            $data = $packager->getDependenciesList($channel, $package, $cache, $config,
                     $argVersionMax, $argVersionMin, true, false, $rest
             );
-            
+
             $result = array();
             foreach ($data['result'] as $_package) {
                 $_result['channel'] = $_package['channel'];
@@ -139,7 +139,14 @@ extends Mage_Connect_Command
                 }
             }
 
-            $this->ui()->output(array($command=> array('data'=>$result, 'title'=>"Package installation information for {$params[1]}: ")));
+            $this->ui()->output(
+                array(
+                    $command=> array(
+                        'data'=>$result,
+                        'title'=>"Package installation information for {$params[1]}: "
+                    )
+                )
+            );
 
         } catch (Exception $e) {
             $this->doError($command, $e->getMessage());
@@ -175,8 +182,22 @@ extends Mage_Connect_Command
                 $cache = $this->getSconfig();
                 $config = $this->config();
             }
-            $data = $packager->getDependenciesList($channel, $package, $cache, $config, $argVersionMax, $argVersionMin);
-            $this->ui()->output(array($command=> array('data'=>$data['deps'], 'title'=>"Package deps for {$params[1]}: ")));
+            $data = $packager->getDependenciesList(
+                $channel,
+                $package,
+                $cache,
+                $config,
+                $argVersionMax,
+                $argVersionMin
+            );
+            $this->ui()->output(
+                array(
+                    $command=> array(
+                        'data'=>$data['deps'],
+                        'title'=>"Package deps for {$params[1]}: "
+                    )
+                )
+            );
 
         } catch (Exception $e) {
             $this->doError($command, $e->getMessage());
@@ -187,7 +208,7 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
         try {
-            if(count($params) < 1) {
+            if (count($params) < 1) {
                 throw new Exception("Arguments should be: source.tgz [target.tgz]");
             }
             $sourceFile = $params[0];
