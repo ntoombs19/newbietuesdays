@@ -1,8 +1,8 @@
 {
-    "name": "Newbietuesday/Export",
+    "name": "CLS/EnhancedOrderExport",
     "license": "OSL-3.0",
     "type": "magento-module",
-    "description": "Custom newbietuesday export",
+    "description": "Custom cls enhancedorderexport",
     "require": {
         "magento-hackathon/magento-composer-installer": "*"
     },

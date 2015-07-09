@@ -1,15 +1,15 @@
-Newbietuesday Export Extension
+CLS EnhancedOrderExport Extension
 =====================
-Custom newbietuesday export
+Custom CLS EnhancedOrderExport
 Facts
 -----
 - version: 1.0.0
-- extension key: Newbietuesday_Export
-- [extension on Magento Connect](http://www.magentocommerce.com/magento-connect/newbietuesday)-export-1234.html)
-- Magento Connect 1.0 extension key: magento-community/Newbietuesday_Export
-- Magento Connect 2.0 extension key: http://connect20.magentocommerce.com/community/Newbietuesday_Export
-- [extension on GitHub](https://github.com/newbietuesday/Newbietuesday_Export)
-- [direct download link](http://connect.magentocommerce.com/community/get/Newbietuesday_Export-1.0.0.tgz)
+- extension key: CLS EnhancedOrderExport
+- [extension on Magento Connect](http://www.magentocommerce.com/magento-connect/cls)-enhancedorderexport-1234.html)
+- Magento Connect 1.0 extension key: magento-community/CLS_EnhancedOrderExport
+- Magento Connect 2.0 extension key: http://connect20.magentocommerce.com/community/CLS_EnhancedOrderExport
+- [extension on GitHub](https://github.com/cls/CLS_EnhancedOrderExport)
+- [direct download link](http://connect.magentocommerce.com/community/get/CLS_EnhancedOrderExport-1.0.0.tgz)
 
 Description
 -----------
@@ -39,7 +39,7 @@ Uninstallation
 
 Support
 -------
-If you have any issues with this extension, open an issue on [GitHub](https://github.com/newbietuesday/Newbietuesday_Export/issues).
+If you have any issues with this extension, open an issue on [GitHub](https://github.com/cls/CLS_EnhancedOrderExport/issues).
 
 Contribution
 ------------
@@ -57,4 +57,4 @@ Licence
 
 Copyright
 ---------
-(c) 2015 Newbietuesday
+(c) 2015 CLS

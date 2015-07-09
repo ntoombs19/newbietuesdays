@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <CLS_EnhancedOrderExport>
+            <version>1.0.0</version>
+        </CLS_EnhancedOrderExport>
+    </modules>
+    <global>
+        <blocks>
+            <CLS_EnhancedOrderExport>
+                <class>CLS_EnhancedOrderExport_Block</class>
+            </CLS_EnhancedOrderExport>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>CLS_EnhancedOrderExport_Block_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <CLS_EnhancedOrderExport>
+                <class>CLS_EnhancedOrderExport_Helper</class>
+            </CLS_EnhancedOrderExport>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <CLS_EnhancedOrderExport after="Mage_Adminhtml">CLS_EnhancedOrderExport</CLS_EnhancedOrderExport>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

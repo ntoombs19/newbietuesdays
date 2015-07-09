@@ -1,6 +1,6 @@
 <?php
 
-class Newbietuesday_Export_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Sales_Order_Grid
+class CLS_EnhancedOrderExport_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Sales_Order_Grid
 {
     /**
      * Rows per page for import
@@ -44,16 +44,10 @@ class Newbietuesday_Export_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_S
     protected function _prepareColumns()
     {
         $this->addColumnAfter('email', array(
-            'header' => Mage::helper('Newbietuesday_Export')->__('Email'),
+            'header' => Mage::helper('CLS_EnhancedOrderExport')->__('Email'),
             'index' => 'email',
             'type' => 'text',
             'filter' => false,
-        ), 'shipping_name');
-        $this->addColumnAfter('name', array(
-        'header' => Mage::helper('Newbietuesday_Export')->__('Name'),
-        'index' => 'productName',
-        'type' => 'text',
-        'filter' => false,
         ), 'shipping_name');
         $this->addExportType('*/*/exportCsvEnhanced', Mage::helper('sales')->__('CSVe'));
         parent::_prepareColumns();

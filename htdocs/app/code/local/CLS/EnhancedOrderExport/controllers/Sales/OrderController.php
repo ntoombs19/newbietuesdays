@@ -7,7 +7,7 @@ $defController = Mage::getBaseDir()
 
 require_once $defController;
 
-class Newbietuesday_Export_Sales_OrderController extends Mage_Adminhtml_Sales_OrderController
+class CLS_EnhancedOrderExport_Sales_OrderController extends Mage_Adminhtml_Sales_OrderController
 {
 
     /**
@@ -16,7 +16,7 @@ class Newbietuesday_Export_Sales_OrderController extends Mage_Adminhtml_Sales_Or
     public function exportCsvEnhancedAction()
     {
         $fileName   = 'orders-' . gmdate('YmdHis') . '.csv';
-        $grid       = $this->getLayout()->createBlock('Newbietuesday_Export/sales_order_grid');
+        $grid       = $this->getLayout()->createBlock('CLS_EnhancedOrderExport/sales_order_grid');
         $this->_prepareDownloadResponse($fileName, $grid->getCsvFileEnhanced());
     }
 
