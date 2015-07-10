@@ -6,7 +6,7 @@ $installer->startSetup();
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('cls_requestcatalog/requestcatalog'))
-    ->addColumn('requestcatalog_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
@@ -20,6 +20,9 @@ $table = $installer->getConnection()
     ), 'Last_Name')
     ->addColumn('email', Varien_Db_Ddl_Table::TYPE_VARCHAR, null, array(
         'nullable'  => false,
-    ), 'Email');
+    ), 'Email')
+    ->addColumn('future_catalogs', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, array(
+        'nullable'  => false,
+    ), 'future_catalogs');
 
 $installer->getConnection()->createTable($table);

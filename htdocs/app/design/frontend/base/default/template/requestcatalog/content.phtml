@@ -5,7 +5,7 @@
         <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'wysiwyg/RequestCatalog.jpg'?>" style="width:100%;"/>
 
     </div>
-    <form id="requestCatalogForm" action="" method="post" onsubmit="">
+    <form id="requestCatalogForm" action="requestcatalog/index/save" method="post">
         <div class="block-content">
             <ul class="form-list">
                 <li>
@@ -28,14 +28,20 @@
                 </li>
                 <li class="control">
                     <div class="input-box">
-                        <input type="checkbox" name="is_subscribed" title="" value="1" id="future_catalogs" class="checkbox" />
+                        <input type="checkbox" name="future_catalogs" title="" value="1" id="future_catalogs" class="checkbox" />
                     </div>
                     <label for="future_catalogs"><?php echo $this->__('Receive future catalogs') ?></label>
                 </li>
             </ul>
             <div class="actions">
-                <button type="submit" title="" class="button"><span><span>Submit</span></span></button>
+                <button type="submit" name="submit" title="" class="button"><span><span>Submit</span></span></button>
             </div>
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('requestCatalogForm');
+    //]]>
+</script>
