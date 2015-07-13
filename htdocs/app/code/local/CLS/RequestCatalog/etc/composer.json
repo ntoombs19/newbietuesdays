@@ -1,0 +1,15 @@
+{
+    "name": "CLS/RequestCatalog",
+    "license": "OSL-3.0",
+    "type": "magento-module",
+    "description": "Add your description here",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "authors":[
+        {
+            "name":"Nathan Toombs",
+            "email":"nathan.toombs@classyllama.com"
+        }
+    ]
+}

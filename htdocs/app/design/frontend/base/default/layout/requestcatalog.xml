@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default></default>
+    <cls_requestcatalog_index_index>
+        <reference name="content">
+            <block type="cls_requestcatalog/requestcatalog" name="request_catalog" template="requestcatalog/requestcatalog.phtml" />
+        </reference>
+    </cls_requestcatalog_index_index>
+    <cls_requestcatalog_index_success>
+        <reference name="content">
+            <block type="cls_requestcatalog/requestcatalog" name="request_catalog_success" template="requestcatalog/success.phtml" />
+        </reference>
+    </cls_requestcatalog_index_success>
+</layout>
