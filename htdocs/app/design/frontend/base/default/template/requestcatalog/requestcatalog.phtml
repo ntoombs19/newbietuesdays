@@ -6,7 +6,9 @@
 
     </div>
     <form id="requestCatalogForm" action="requestcatalog/index/save" method="post">
-        <div class="block-content">
+        <div class="fieldset">
+            <h2 class="legend">Contact Information</h2>
+            <p class="required">* Required Fields</p>
             <ul class="form-list">
                 <li>
                     <label for="first_name" class="required"><em>*</em><?php echo $this->__('First Name') ?></label>
@@ -33,9 +35,9 @@
                     <label for="future_catalogs"><?php echo $this->__('Receive future catalogs') ?></label>
                 </li>
             </ul>
-            <div class="actions">
-                <button type="submit" name="submit" title="" class="button"><span><span>Submit</span></span></button>
-            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" name="submit" title="" class="button"><span><span>Submit</span></span></button>
         </div>
     </form>
 </div>

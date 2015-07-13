@@ -19,7 +19,12 @@ class CLS_RequestCatalog_IndexController extends Mage_Core_Controller_Front_Acti
         $collection->setData('future_catalogs', $post['future_catalogs']);
         $collection->save();
 
-        header("Location: " . $_SERVER['HTTP_ORIGIN'] . "/requestcatalog");
+        header("Location: " . $_SERVER['HTTP_ORIGIN'] . "/requestcatalog/index/success");
         exit();
+    }
+
+    public function successAction(){
+        $this->loadLayout();
+        $this->renderLayout();
     }
 }
