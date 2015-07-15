@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_requestcatalog_index>
+        <reference name="content">
+            <block type="cls_requestcatalog/adminhtml_requestcatalog" name="RequestCatalog" />
+        </reference>
+    </adminhtml_requestcatalog_index>
+    <adminhtml_RequestCatalog_edit>
+        <reference name="content">
+            <block type="cls_requestcatalog/adminhtml_requestcatalog_edit" name="RequestCatalogEdit" />
+        </reference>
+    </adminhtml_RequestCatalog_edit>
+    <adminhtml_RequestCatalog_edit_tabs>
+        <reference name="left">
+            <block type="cls_requestcatalog/adminhtml_requestcatalog_edit_tabs" name="RequestCatalogEditTabs" />
+        </reference>
+    </adminhtml_RequestCatalog_edit_tabs>
+</layout>

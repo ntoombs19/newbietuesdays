@@ -2,10 +2,10 @@
     <div class="box-content">
         <h1>Request a catalog</h1>
 
-        <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'wysiwyg/RequestCatalog.jpg'?>" style="width:100%;"/>
+        <img src="<?php echo getBaseUrlMedia() . 'wysiwyg/RequestCatalog.jpg'?>" style="width:100%;"/>
 
     </div>
-    <form id="requestCatalogForm" action="requestcatalog/index/save" method="post">
+        <form id="requestCatalogForm" action="<?php echo $this->getRequestCatalogSave() ?>" method="post">
         <div class="fieldset">
             <h2 class="legend">Contact Information</h2>
             <p class="required">* Required Fields</p>
@@ -40,6 +40,27 @@
             <button type="submit" name="submit" title="" class="button"><span><span>Submit</span></span></button>
         </div>
     </form>
+
+    <table>
+        <thead>
+            <th style="padding-right: 10px;font-weight: bold">ID</th>
+            <th style="padding-right: 10px;font-weight: bold">First Name</th>
+            <th style="padding-right: 10px;font-weight: bold">Last Name</th>
+            <th style="padding-right: 10px;font-weight: bold">Email</th>
+        </thead>
+        <?php
+            $collection = $this->getRequestCatalogCollection();
+
+            foreach ($collection as $item) {
+                echo "<tr>";
+                echo "<td>" . $item->getId() . "</td>";
+                echo "<td>" . $item->getFirstName() . "</td>";
+                echo "<td>" . $item->getLastName() . "</td>";
+                echo "<td>" . $item->getEmail() . "</td>";
+                echo "</tr>";
+            }
+        ?>
+    </table>
 </div>
 
 <script type="text/javascript">

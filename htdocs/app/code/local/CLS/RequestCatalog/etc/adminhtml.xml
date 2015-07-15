@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <RequestCatalog module="cls_requestcatalog">
+            <title>Catalog Requests</title>
+            <sort_order>71</sort_order>
+            <children>
+                <items module="cls_requestcatalog">
+                    <title>Manage Items</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/requestcatalog</action>
+                </items>
+            </children>
+        </RequestCatalog>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <requestcatalog>
+                        <title>RequestCatalog Module</title>
+                        <sort_order>200</sort_order>
+                    </requestcatalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

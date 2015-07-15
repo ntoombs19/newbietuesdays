@@ -131,6 +131,9 @@ Default layout, loads most of the pages
             <block type="core/text_list" name="content" as="content"/>
             <block type="core/messages" name="messages" as="messages"/>
             <block type="core/text_list" name="js" as="js"/>
+            Mage::getLayout()->createBlock('footer', 'adminhtml/page_footer')
+                ->setBugreportUrl('http://www.magentocommerce.com/bug-tracking')
+                ->setConnectWithMagentoUrl('http://magento.com/resources/technical');
             <block type="adminhtml/page_footer" name="footer" as="footer">
                 <action method="setBugreportUrl"><url>http://www.magentocommerce.com/bug-tracking</url></action>
                 <action method="setConnectWithMagentoUrl"><url>http://magento.com/resources/technical</url></action>

@@ -22,7 +22,7 @@ $table = $installer->getConnection()
         'nullable'  => false,
     ), 'Email')
     ->addColumn('future_catalogs', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, array(
-        'nullable'  => false,
+        'nullable'  => true,
     ), 'future_catalogs');
 
 $installer->getConnection()->createTable($table);

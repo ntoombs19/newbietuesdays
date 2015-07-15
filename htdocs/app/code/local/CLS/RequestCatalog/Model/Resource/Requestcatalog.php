@@ -15,7 +15,7 @@ class CLS_RequestCatalog_Model_Resource_Requestcatalog extends Mage_Core_Model_R
      */
     protected function _construct()
     {
-        $this->_init('cls_requestcatalog/requestcatalog', 'requestcatalog_id');
+        $this->_init('cls_requestcatalog/requestcatalog', 'id');
     }
 }
 

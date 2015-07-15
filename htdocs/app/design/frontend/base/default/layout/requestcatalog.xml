@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <default></default>
-    <cls_requestcatalog_index_index>
+    <cls_requestcatalog_index_index><!--Reference to controller action in module CLS_RequestCatalog-->
         <reference name="content">
             <block type="cls_requestcatalog/requestcatalog" name="request_catalog" template="requestcatalog/requestcatalog.phtml" />
+
+            <!--
+                type is the block where magento will look to call the action method,
+                name is just a unique identifier of the block,
+                template is the phtml file that will be loaded and displayed
+            -->
         </reference>
     </cls_requestcatalog_index_index>
     <cls_requestcatalog_index_success>

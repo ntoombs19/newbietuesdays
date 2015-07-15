@@ -17,12 +17,33 @@
         </routers>
         <layout>
             <updates>
-                <requestcatalog>
+                <cls_requestcatalog>
                     <file>requestcatalog.xml</file>
-                </requestcatalog>
+                </cls_requestcatalog>
             </updates>
         </layout>
     </frontend>
+    <admin>
+        <routers>
+            <!-- Includes our controller, so when we add the adminhtml menu item below, it is found! -->
+            <adminhtml>
+                <args>
+                    <modules>
+                        <CLS_RequestCatalog before="Mage_Adminhtml">CLS_RequestCatalog_Adminhtml</CLS_RequestCatalog>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <cls_requestcatalog>
+                    <file>requestcatalog.xml</file>
+                </cls_requestcatalog>
+            </updates>
+        </layout>
+    </adminhtml>
     <global>
         <blocks>
             <cls_requestcatalog>
@@ -54,20 +75,7 @@
                 <setup>
                     <module>CLS_RequestCatalog</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </cls_requestcatalog_setup>
-            <cls_requestcatalog_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </cls_requestcatalog_write>
-            <cls_requestcatalog_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </cls_requestcatalog_read>
         </resources>
     </global>
 </config>
