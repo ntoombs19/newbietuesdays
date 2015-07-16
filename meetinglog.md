@@ -1,5 +1,5 @@
 # Meeting Notes
----
+
 ## Meeting #1 - June 16, 2015
 
 **In Attendance**: Tom, Nathan, Chris

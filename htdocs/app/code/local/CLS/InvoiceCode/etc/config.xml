@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <CLS_InvoiceCode>
+            <version>1.0.0</version>
+        </CLS_InvoiceCode>
+    </modules>
+    <global>
+        <blocks>
+            <cls_invoicecode>
+                <class>CLS_InvoiceCode_Block</class>
+            </cls_invoicecode>
+        </blocks>
+        <helpers>
+            <cls_invoicecode>
+                <class>CLS_InvoiceCode_Helper</class>
+            </cls_invoicecode>
+        </helpers>
+        <models>
+            <cls_invoicecode>
+                <class>CLS_InvoiceCode_Model</class>
+            </cls_invoicecode>
+            <sales>
+                <rewrite>
+                    <order_pdf_invoice>CLS_InvoiceCode_Model_Order_Pdf_Invoice</order_pdf_invoice>
+                </rewrite>
+            </sales>
+        </models>
+        <resources>
+            <cls_invoicecode_setup>
+                <setup>
+                    <module>CLS_InvoiceCode</module>
+                </setup>
+            </cls_invoicecode_setup>
+        </resources>
+    </global>
+</config>
