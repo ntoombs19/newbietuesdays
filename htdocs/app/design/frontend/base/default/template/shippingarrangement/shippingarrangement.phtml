@@ -1,0 +1,36 @@
+<style type="text/css">
+    .hideShippingArrangement{
+        display: none;
+    }
+    .showShippingArrangement{
+        display: block;
+    }
+</style>
+<script type="text/javascript">
+    jQuery("#toggleShippingArrangement").click(function() {
+        jQuery("#shippingArrangement").toggle( 0, function() {
+            jQuery("#shippingArrangementInput").val('');
+        });
+    });
+</script>
+<div>
+    <h3>Would you like a custom shipping arrangement?</h3>
+    <fieldset>
+        <ul class="form-list">
+            <li>
+                <p>
+                    <input type="checkbox" id="toggleShippingArrangement" class="checkbox"/>
+                    <label for="toggleShippingArrangement">Add custom shipping arrangement</label>
+                </p>
+            </li>
+            <li class="fields">
+                <div class="field hideShippingArrangement" id="shippingArrangement">
+                    <p>Instructions: Write the word(s) you would like your items to be arranged in. Alternatively, you could describe the pattern you want your items arranged in. (i.e., A heart shape)</p>
+                    <div class="input-box">
+                        <input type="text" name="shipping_arrangement" id="shippingArrangementInput"/>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+</div>

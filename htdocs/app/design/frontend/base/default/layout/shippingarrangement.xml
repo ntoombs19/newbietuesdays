@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_shippingmethod>
+            <block type="cls_shippingarrangement/shippingarrangement" name="shippingarrangement1" output="toHtml" template="shippingarrangement/shippingarrangement.phtml" />
+    </checkout_onepage_shippingmethod>
+    <sales_order_view>
+        <reference name="my.account.wrapper">
+            <block type="cls_shippingarrangement/shippingarrangement" name="custom.order" template="shippingarrangement/order.phtml" after='sales.order.info' />
+        </reference>
+    </sales_order_view>
+</layout>

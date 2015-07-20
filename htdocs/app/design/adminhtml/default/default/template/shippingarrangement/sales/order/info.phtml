@@ -1,0 +1,8 @@
+<?php
+
+    echo $this->getChildHtml('order_info2');
+    if($this->getOrder()->getShippingArrangement() != NULL)
+    {
+        echo $this->getChildHtml('shippingarrangement.order');
+    }
+?>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+            <block type="adminhtml/sales_order_view_info" name="order_info2" template="sales/order/view/info.phtml"></block>
+            <block type="cls_shippingarrangement/adminhtml_order" name="shippingarrangement.order" template='shippingarrangement/order.phtml'/>
+
+            <action method='setTemplate'>
+                <template>shippingarrangement/sales/order/info.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>
