@@ -3,8 +3,6 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer = new Mage_Sales_Model_Resource_Setup('core_setup');
-
 $attribute  = array(
     'type' => 'varchar',
     'backend_type' => 'varchar',

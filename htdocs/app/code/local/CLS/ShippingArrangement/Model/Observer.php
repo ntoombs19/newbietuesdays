@@ -7,7 +7,7 @@ class CLS_ShippingArrangement_Model_Observer
      */
     public function customDataSave($observer){
         $session = Mage::getSingleton("core/session");
-        $shipping_arrangement = $session->getData('shipping_arrangement');
+        $shipping_arrangement = $session->getShippingArrangement
         $event = $observer->getEvent();
         $order = $event->getOrder();
         $order->setShippingArrangement($shipping_arrangement);
@@ -23,7 +23,7 @@ class CLS_ShippingArrangement_Model_Observer
         if(isset($post['shipping_arrangement'])){
             $var = $post['shipping_arrangement'];
             $quote->setShippingArrangement($var);
-            $session->setData('shipping_arrangement',$post['shipping_arrangement']);
+            $session->setShippingArrangement($var);
         }
     }
 }

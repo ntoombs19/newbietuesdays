@@ -64,16 +64,17 @@
             <shippingarrangement_resource>
                 <class>CLS_ShippingArrangement_Model_Resource</class>
             </shippingarrangement_resource>
-            <sales>
-                <rewrite>
-                    <order>CLS_ShippingArrangement_Model_Sales_Order</order>
-                </rewrite>
-            </sales>
+            <!--<sales>-->
+                <!--<rewrite>-->
+                    <!--<order>CLS_ShippingArrangement_Model_Sales_Order</order>-->
+                <!--</rewrite>-->
+            <!--</sales>-->
         </models>
         <resources>
             <cls_shippingarrangement_setup>
                 <setup>
                     <module>CLS_ShippingArrangement</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
                 </setup>
             </cls_shippingarrangement_setup>
 
